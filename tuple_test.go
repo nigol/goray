@@ -34,3 +34,16 @@ func TestCreateVector(t *testing.T) {
         t.Errorf("Tuple is not a vector")
     }
 }
+
+func TestEqual(t *testing.T) {
+    t1 := CreateTuple(1, 2, 3, 4)
+    t2 := CreateTuple(1, 2, 3, 4)
+    if !t1.Equal(t2) {
+        t.Errorf("Tuples should be equal")
+    }
+    t1 = CreateTuple(1, 2, 3, 4)
+    t2 = CreateTuple(12, 2, 3, 4)
+    if t1.Equal(t2) {
+        t.Errorf("Tuples should be different")
+    }
+}
