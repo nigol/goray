@@ -18,23 +18,11 @@ func CreateTuple(x float64, y float64, z float64, w float64) Tuple {
 }
 
 func CreatePoint(x float64, y float64, z float64) Tuple {
-    result := Tuple{
-        x,
-        y,
-        z,
-        1.0,
-    }
-    return result
+    return CreateTuple(x, y, z, 1.0)
 }
 
 func CreateVector(x float64, y float64, z float64) Tuple {
-    result := Tuple{
-        x,
-        y,
-        z,
-        0.0,
-    }
-    return result
+    return CreateTuple(x, y, z, 0.0)
 }
 
 func abs(x float64) float64 {
@@ -50,5 +38,5 @@ func equal(a float64, b float64) bool {
 }
 
 func (t Tuple) Equal(o Tuple) bool {
-    return t.x == o.x && t.y == o.y && t.z == o.z && t.w == o.w
+    return equal(t.x, o.x) && equal(t.y, o.y) && equal(t.z, o.z) && equal(t.w, o.w)
 }
