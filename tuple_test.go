@@ -47,3 +47,13 @@ func TestEqual(t *testing.T) {
         t.Errorf("Tuples should be different")
     }
 }
+
+func TestAddTuple(t *testing.T) {
+    t1 := CreateTuple(3, -2, 5, 1)
+    t2 := CreateTuple(-2, 3, 1, 0)
+    t3 := CreateTuple(1, 1, 6, 1)
+    t4 := t1.Add(t2)
+    if !t3.Equal(t4) {
+        t.Errorf("Tuples should be equal: %f, %f, %f, %f", t4.x, t4.y, t4.z, t4.w)
+    }
+}

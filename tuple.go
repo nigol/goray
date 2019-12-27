@@ -40,3 +40,7 @@ func equal(a float64, b float64) bool {
 func (t Tuple) Equal(o Tuple) bool {
     return equal(t.x, o.x) && equal(t.y, o.y) && equal(t.z, o.z) && equal(t.w, o.w)
 }
+
+func (t Tuple) Add(o Tuple) Tuple {
+    return CreateTuple(t.x + o.x, t.y + o.y, t.z + o.z, t.w + o.w)
+}
