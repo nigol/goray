@@ -57,3 +57,33 @@ func TestAddTuple(t *testing.T) {
         t.Errorf("Tuples should be equal: %f, %f, %f, %f", t4.x, t4.y, t4.z, t4.w)
     }
 }
+
+func TestSubPointPoint(t * testing.T) {
+    t1 := CreatePoint(3, 2, 1)
+    t2 := CreatePoint(5, 6, 7)
+    t3 := CreateVector(-2, -4, -6)
+    t4 := t1.Sub(t2)
+    if !t3.Equal(t4) {
+        t.Errorf("Tuples should be equal: %f, %f, %f, %f", t4.x, t4.y, t4.z, t4.w)
+    }
+}
+
+func TestSubPointVector(t * testing.T) {
+    t1 := CreatePoint(3, 2, 1)
+    t2 := CreateVector(5, 6, 7)
+    t3 := CreatePoint(-2, -4, -6)
+    t4 := t1.Sub(t2)
+    if !t3.Equal(t4) {
+        t.Errorf("Tuples should be equal: %f, %f, %f, %f", t4.x, t4.y, t4.z, t4.w)
+    }
+}
+
+func TestSubVectorVector(t * testing.T) {
+    t1 := CreateVector(3, 2, 1)
+    t2 := CreateVector(5, 6, 7)
+    t3 := CreateVector(-2, -4, -6)
+    t4 := t1.Sub(t2)
+    if !t3.Equal(t4) {
+        t.Errorf("Tuples should be equal: %f, %f, %f, %f", t4.x, t4.y, t4.z, t4.w)
+    }
+}

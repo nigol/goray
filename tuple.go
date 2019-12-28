@@ -44,3 +44,7 @@ func (t Tuple) Equal(o Tuple) bool {
 func (t Tuple) Add(o Tuple) Tuple {
     return CreateTuple(t.x + o.x, t.y + o.y, t.z + o.z, t.w + o.w)
 }
+
+func (t Tuple) Sub(o Tuple) Tuple {
+    return CreateTuple(t.x - o.x, t.y - o.y, t.z - o.z, t.w - o.w)
+}
