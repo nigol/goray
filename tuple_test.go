@@ -96,3 +96,30 @@ func TestNegateTuple(t *testing.T) {
         t.Errorf("Tuples should be equal: %f, %f, %f, %f", t3.x, t3.y, t3.z, t3.w)
     }
 }
+
+func TestMultipleScalar(t *testing.T) {
+    t1 := CreateTuple(1, -2, 3, -4)
+    t2 := CreateTuple(3.5, -7, 10.5, -14)
+    t3 := t1.ScalarMul(3.5)
+    if !t2.Equal(t3) {
+        t.Errorf("Tuples should be equal: %f, %f, %f, %f", t3.x, t3.y, t3.z, t3.w)
+    }
+}
+
+func TestMultipleFraction(t *testing.T) {
+    t1 := CreateTuple(1, -2, 3, -4)
+    t2 := CreateTuple(0.5, -1, 1.5, -2)
+    t3 := t1.ScalarMul(0.5)
+    if !t2.Equal(t3) {
+        t.Errorf("Tuples should be equal: %f, %f, %f, %f", t3.x, t3.y, t3.z, t3.w)
+    }
+}
+
+func TestDivisionScalar(t *testing.T) {
+    t1 := CreateTuple(1, -2, 3, -4)
+    t2 := CreateTuple(0.5, -1, 1.5, -2)
+    t3 := t1.ScalarDiv(2)
+    if !t2.Equal(t3) {
+        t.Errorf("Tuples should be equal: %f, %f, %f, %f", t3.x, t3.y, t3.z, t3.w)
+    }
+}

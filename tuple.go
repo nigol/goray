@@ -52,3 +52,11 @@ func (t Tuple) Sub(o Tuple) Tuple {
 func (t Tuple) Negate() Tuple {
     return CreateTuple(0, 0, 0, 0).Sub(t)
 }
+
+func (t Tuple) ScalarMul(n float64) Tuple {
+    return CreateTuple(t.x * n, t.y * n, t.z * n, t.w * n)
+}
+
+func (t Tuple) ScalarDiv(n float64) Tuple {
+    return CreateTuple(t.x / n, t.y / n, t.z / n, t.w / n)
+}
