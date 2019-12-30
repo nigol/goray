@@ -147,3 +147,21 @@ func TestMagnitude(t *testing.T) {
 		t.Errorf("Magnitude should be %f, given: %f", math.Sqrt(14), t5.Magnitude())
 	}
 }
+
+func TestNormalize(t *testing.T) {
+    t1 := CreateVector(4, 0, 0)
+    t2 := CreateVector(1, 0, 0)
+    t3 := t1.Normalize()
+	if !t2.Equal(t3) {
+		t.Errorf("Tuples should be equal: %f, %f, %f, %f", t3.x, t3.y, t3.z, t3.w)
+	}
+    t1 = CreateVector(1, 2, 3)
+    t2 = CreateVector(0.26726, 0.53452, 0.80178)
+    t3 = t1.Normalize()
+	if !t2.Equal(t3) {
+		t.Errorf("Tuples should be equal: %f, %f, %f, %f", t3.x, t3.y, t3.z, t3.w)
+	}
+	if t3.Magnitude() != 1.0 {
+		t.Errorf("Magnitude should be %f, given: %f", 1.0, t3.Magnitude())
+	}
+}

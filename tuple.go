@@ -62,3 +62,8 @@ func (t Tuple) Magnitude() float64 {
 	sumOfSq := t.x*t.x + t.y*t.y + t.z*t.z + t.w*t.w
 	return math.Sqrt(sumOfSq)
 }
+
+func (t Tuple) Normalize() Tuple {
+    mag := t.Magnitude()
+    return CreateTuple(t.x/mag, t.y/mag, t.z/mag, t.w/mag)
+}
