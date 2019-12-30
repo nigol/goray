@@ -174,3 +174,19 @@ func TestDot(t *testing.T) {
 		t.Errorf("Dot product should be %f, given: %f", 20.0, t1.Dot(t2))
 	}
 }
+
+// Cross product - defined only for vector
+func TestCross(t *testing.T) {
+	t1 := CreateVector(1, 2, 3)
+	t2 := CreateVector(2, 3, 4)
+	t3 := t1.Cross(t2)
+	t4 := t2.Cross(t1)
+	t5 := CreateVector(-1, 2, -1)
+	t6 := CreateVector(1, -2, 1)
+	if !t3.Equal(t5) {
+		t.Errorf("Tuples should be equal: %f, %f, %f, %f", t3.x, t3.y, t3.z, t3.w)
+	}
+	if !t4.Equal(t6) {
+		t.Errorf("Tuples should be equal: %f, %f, %f, %f", t4.x, t4.y, t4.z, t4.w)
+	}
+}

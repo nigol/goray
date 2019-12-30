@@ -71,3 +71,7 @@ func (t Tuple) Normalize() Tuple {
 func (t Tuple) Dot(o Tuple) float64 {
 	return t.x*o.x + t.y*o.y + t.z*o.z + t.w + o.w
 }
+
+func (t Tuple) Cross(o Tuple) Tuple {
+	return CreateVector(t.y*o.z-t.z*o.y, t.z*o.x-t.x*o.z, t.x*o.y-t.y*o.x)
+}
