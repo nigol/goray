@@ -64,6 +64,10 @@ func (t Tuple) Magnitude() float64 {
 }
 
 func (t Tuple) Normalize() Tuple {
-    mag := t.Magnitude()
-    return CreateTuple(t.x/mag, t.y/mag, t.z/mag, t.w/mag)
+	mag := t.Magnitude()
+	return CreateTuple(t.x/mag, t.y/mag, t.z/mag, t.w/mag)
+}
+
+func (t Tuple) Dot(o Tuple) float64 {
+	return t.x*o.x + t.y*o.y + t.z*o.z + t.w + o.w
 }
