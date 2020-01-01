@@ -1,7 +1,7 @@
 package main
 
 import (
-    "math"
+	"math"
 )
 
 func equal(a float64, b float64) bool {

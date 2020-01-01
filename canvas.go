@@ -17,3 +17,7 @@ func (c Color) Add(o Color) Color {
 func (c Color) Sub(o Color) Color {
 	return Color{c.red - o.red, c.green - o.green, c.blue - o.blue}
 }
+
+func (c Color) ScalarMul(n float64) Color {
+	return Color{c.red * n, c.green * n, c.blue * n}
+}
