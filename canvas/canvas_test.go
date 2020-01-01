@@ -1,6 +1,7 @@
 package canvas
 
 import (
+	"strings"
 	"testing"
 )
 
@@ -77,5 +78,20 @@ func TestWritePixel(t *testing.T) {
 	c.WritePixel(2, 3, red)
 	if !red.Equal(c.PixelAt(2, 3)) {
 		t.Errorf("Color should be red.")
+	}
+}
+
+func TestPpm(t *testing.T) {
+	c := CreateCanvas(5, 3)
+	c1 := Color{1.5, 0.0, 0.0}
+	c2 := Color{0.0, 0.5, 0.0}
+	c3 := Color{-0.5, 0.0, 1.0}
+	c.WritePixel(0, 0, c1)
+	c.WritePixel(2, 1, c2)
+	c.WritePixel(4, 2, c3)
+	slc := strings.SplitN(c.Ppm(), "\n", -1)
+	comp := slc[0] == "P3" && slc[1] == "5 3" && slc[2] == "255"
+	if !comp {
+		t.Errorf("PPM header is not valid. %s", c.Ppm())
 	}
 }

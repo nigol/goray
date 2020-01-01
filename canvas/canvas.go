@@ -2,6 +2,8 @@ package canvas
 
 import (
 	"goray/common"
+	"strconv"
+	"strings"
 )
 
 type Color struct {
@@ -52,4 +54,19 @@ func (can Canvas) WritePixel(x int, y int, c Color) {
 
 func (can Canvas) PixelAt(x int, y int) Color {
 	return can.pixels[y*can.Width+x]
+}
+
+func (can Canvas) Ppm() string {
+	var sb strings.Builder
+	ppmHeader(can, &sb)
+	return sb.String()
+}
+
+func ppmHeader(can Canvas, sb *strings.Builder) {
+	sb.WriteString("P3\n")
+	sb.WriteString(strconv.Itoa(can.Width))
+	sb.WriteString(" ")
+	sb.WriteString(strconv.Itoa(can.Height))
+	sb.WriteString("\n")
+	sb.WriteString("255\n")
 }
