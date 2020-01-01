@@ -61,4 +61,12 @@ func TestCreateCanvas(t *testing.T) {
 	if !comp {
 		t.Errorf("Canvas dimensions are wrong.")
 	}
+    b := Color{0.0, 0.0, 0.0}
+    comp = true
+    for _, color := range c.pixels {
+        comp = comp && b.Equal(color)
+    }
+	if !comp {
+		t.Errorf("All colors should be black.")
+	}
 }
