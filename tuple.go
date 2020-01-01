@@ -29,11 +29,6 @@ func CreateVector(x float64, y float64, z float64) Tuple {
 	return CreateTuple(x, y, z, 0.0)
 }
 
-func equal(a float64, b float64) bool {
-	e := 0.00001
-	return math.Abs(a-b) < e
-}
-
 func (t Tuple) Equal(o Tuple) bool {
 	return equal(t.x, o.x) && equal(t.y, o.y) && equal(t.z, o.z) && equal(t.w, o.w)
 }
