@@ -21,3 +21,7 @@ func (c Color) Sub(o Color) Color {
 func (c Color) ScalarMul(n float64) Color {
 	return Color{c.red * n, c.green * n, c.blue * n}
 }
+
+func (c Color) Product(o Color) Color {
+	return Color{c.red * o.red, c.green * o.green, c.blue * o.blue}
+}

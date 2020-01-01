@@ -44,3 +44,13 @@ func TestScalarMulColor(t *testing.T) {
 		t.Errorf("Color scalar mul is not working. %f, %f, %f", c3.red, c3.green, c3.blue)
 	}
 }
+
+func TestProductColor(t *testing.T) {
+	c1 := Color{1.0, 0.2, 0.4}
+	c2 := Color{0.9, 1.0, 0.1}
+	c3 := c1.Product(c2)
+	c4 := Color{0.9, 0.2, 0.04}
+	if !c3.Equal(c4) {
+		t.Errorf("Color product is not working. %f, %f, %f", c3.red, c3.green, c3.blue)
+	}
+}
