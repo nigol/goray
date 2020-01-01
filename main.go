@@ -2,16 +2,17 @@ package main
 
 import (
 	"fmt"
+	"goray/tuple"
 )
 
 type Projectile struct {
-	position Tuple
-	velocity Tuple
+	position tuple.Tuple
+	velocity tuple.Tuple
 }
 
 type Environment struct {
-	gravity Tuple
-	wind    Tuple
+	gravity tuple.Tuple
+	wind    tuple.Tuple
 }
 
 func tick(env Environment, proj Projectile) Projectile {
@@ -26,15 +27,15 @@ func tick(env Environment, proj Projectile) Projectile {
 
 func main() {
 	p := Projectile{
-		position: CreatePoint(0, 1, 0),
-		velocity: CreateVector(1, 1, 0).Normalize(),
+		position: tuple.CreatePoint(0, 1, 0),
+		velocity: tuple.CreateVector(1, 1, 0).Normalize(),
 	}
 	e := Environment{
-		gravity: CreateVector(0, -0.1, 0),
-		wind:    CreateVector(-0.01, 0, 0),
+		gravity: tuple.CreateVector(0, -0.1, 0),
+		wind:    tuple.CreateVector(-0.01, 0, 0),
 	}
-	for p.position.y >= 0 {
+	for p.position.Y >= 0 {
 		p = tick(e, p)
-		fmt.Printf("x: %f, y: %f\n", p.position.x, p.position.y)
+		fmt.Printf("x: %f, y: %f\n", p.position.X, p.position.Y)
 	}
 }

@@ -1,14 +1,15 @@
-package main
+package tuple
 
 import (
+	"goray/common"
 	"math"
 )
 
 type Tuple struct {
-	x float64
-	y float64
-	z float64
-	w float64
+	X float64
+	Y float64
+	Z float64
+	W float64
 }
 
 func CreateTuple(x float64, y float64, z float64, w float64) Tuple {
@@ -30,15 +31,15 @@ func CreateVector(x float64, y float64, z float64) Tuple {
 }
 
 func (t Tuple) Equal(o Tuple) bool {
-	return equal(t.x, o.x) && equal(t.y, o.y) && equal(t.z, o.z) && equal(t.w, o.w)
+	return common.Equal(t.X, o.X) && common.Equal(t.Y, o.Y) && common.Equal(t.Z, o.Z) && common.Equal(t.W, o.W)
 }
 
 func (t Tuple) Add(o Tuple) Tuple {
-	return CreateTuple(t.x+o.x, t.y+o.y, t.z+o.z, t.w+o.w)
+	return CreateTuple(t.X+o.X, t.Y+o.Y, t.Z+o.Z, t.W+o.W)
 }
 
 func (t Tuple) Sub(o Tuple) Tuple {
-	return CreateTuple(t.x-o.x, t.y-o.y, t.z-o.z, t.w-o.w)
+	return CreateTuple(t.X-o.X, t.Y-o.Y, t.Z-o.Z, t.W-o.W)
 }
 
 func (t Tuple) Negate() Tuple {
@@ -46,27 +47,27 @@ func (t Tuple) Negate() Tuple {
 }
 
 func (t Tuple) ScalarMul(n float64) Tuple {
-	return CreateTuple(t.x*n, t.y*n, t.z*n, t.w*n)
+	return CreateTuple(t.X*n, t.Y*n, t.Z*n, t.W*n)
 }
 
 func (t Tuple) ScalarDiv(n float64) Tuple {
-	return CreateTuple(t.x/n, t.y/n, t.z/n, t.w/n)
+	return CreateTuple(t.X/n, t.Y/n, t.Z/n, t.W/n)
 }
 
 func (t Tuple) Magnitude() float64 {
-	sumOfSq := t.x*t.x + t.y*t.y + t.z*t.z + t.w*t.w
+	sumOfSq := t.X*t.X + t.Y*t.Y + t.Z*t.Z + t.W*t.W
 	return math.Sqrt(sumOfSq)
 }
 
 func (t Tuple) Normalize() Tuple {
 	mag := t.Magnitude()
-	return CreateTuple(t.x/mag, t.y/mag, t.z/mag, t.w/mag)
+	return CreateTuple(t.X/mag, t.Y/mag, t.Z/mag, t.W/mag)
 }
 
 func (t Tuple) Dot(o Tuple) float64 {
-	return t.x*o.x + t.y*o.y + t.z*o.z + t.w + o.w
+	return t.X*o.X + t.Y*o.Y + t.Z*o.Z + t.W + o.W
 }
 
 func (t Tuple) Cross(o Tuple) Tuple {
-	return CreateVector(t.y*o.z-t.z*o.y, t.z*o.x-t.x*o.z, t.x*o.y-t.y*o.x)
+	return CreateVector(t.Y*o.Z-t.Z*o.Y, t.Z*o.X-t.X*o.Z, t.X*o.Y-t.Y*o.X)
 }
