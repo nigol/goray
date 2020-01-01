@@ -45,3 +45,11 @@ func CreateCanvas(w int, h int) Canvas {
 	}
 	return result
 }
+
+func (can Canvas) WritePixel(x int, y int, c Color) {
+	can.pixels[y*can.Width+x] = c
+}
+
+func (can Canvas) PixelAt(x int, y int) Color {
+	return can.pixels[y*can.Width+x]
+}
