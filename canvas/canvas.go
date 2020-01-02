@@ -59,6 +59,7 @@ func (can Canvas) PixelAt(x int, y int) Color {
 func (can Canvas) Ppm() string {
 	var sb strings.Builder
 	ppmHeader(can, &sb)
+	ppmBody(can, &sb)
 	return sb.String()
 }
 
@@ -69,4 +70,30 @@ func ppmHeader(can Canvas, sb *strings.Builder) {
 	sb.WriteString(strconv.Itoa(can.Height))
 	sb.WriteString("\n")
 	sb.WriteString("255\n")
+}
+
+func ppmBody(can Canvas, sb *strings.Builder) {
+	for i, color := range can.pixels {
+		sb.WriteString(normalizeColor(color.Red))
+		sb.WriteString(" ")
+		sb.WriteString(normalizeColor(color.Green))
+		sb.WriteString(" ")
+		sb.WriteString(normalizeColor(color.Blue))
+		sb.WriteString(" ")
+		if i%5 == 0 {
+			sb.WriteString("\n")
+		}
+	}
+	sb.WriteString("\n")
+}
+
+func normalizeColor(c float64) string {
+	norm := int(c * 256)
+	if norm > 255 {
+		norm = 255
+	}
+	if norm < 0 {
+		norm = 0
+	}
+	return strconv.Itoa(norm)
 }

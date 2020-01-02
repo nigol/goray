@@ -94,4 +94,10 @@ func TestPpm(t *testing.T) {
 	if !comp {
 		t.Errorf("PPM header is not valid. %s", c.Ppm())
 	}
+	comp = slc[3] == "255 0 0 " &&
+		slc[5] == "0 0 0 0 128 0 0 0 0 0 0 0 0 0 0 " &&
+		slc[6] == "0 0 0 0 0 0 0 0 0 0 0 255 "
+	if !comp {
+		t.Errorf("PPM body is not valid. %s", c.Ppm())
+	}
 }
