@@ -81,6 +81,15 @@ func TestWritePixel(t *testing.T) {
 	}
 }
 
+func TestWritePixelOutOfBounds(t *testing.T) {
+	c := CreateCanvas(10, 20)
+	red := Color{1.0, 0.0, 0.0}
+	c.WritePixel(-2, 30, red)
+	if !red.Equal(c.PixelAt(0, 0)) {
+		t.Errorf("Color should be red.")
+	}
+}
+
 func TestPpm(t *testing.T) {
 	c := CreateCanvas(5, 3)
 	c1 := Color{1.5, 0.0, 0.0}

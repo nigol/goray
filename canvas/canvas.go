@@ -49,11 +49,18 @@ func CreateCanvas(w int, h int) Canvas {
 }
 
 func (can Canvas) WritePixel(x int, y int, c Color) {
-	can.pixels[y*can.Width+x] = c
+	can.pixels[can.calculateIndex(x, y)] = c
 }
 
 func (can Canvas) PixelAt(x int, y int) Color {
-	return can.pixels[y*can.Width+x]
+	return can.pixels[can.calculateIndex(x, y)]
+}
+
+func (can Canvas) calculateIndex(x int, y int) int {
+	if x < 0 || x > can.Width || y < 0 || y > can.Height {
+		return 0
+	}
+	return y*can.Width + x
 }
 
 func (can Canvas) Ppm() string {
