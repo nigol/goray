@@ -120,3 +120,39 @@ func TestMatrixMulTuple(t *testing.T) {
 		t.Errorf("Tuples should be equal.")
 	}
 }
+
+func TestMatrixMulIdentity(t *testing.T) {
+	m1 := Matrix{4, 4,
+		[][]float64{
+			{0, 1, 2, 4},
+			{1, 2, 4, 8},
+			{2, 4, 8, 16},
+			{4, 8, 16, 32},
+		}}
+	m2 := Matrix{4, 4,
+		[][]float64{
+			{1, 0, 0, 0},
+			{0, 1, 0, 0},
+			{0, 0, 1, 0},
+			{0, 0, 0, 1},
+		}}
+	m3 := m1.Mul(m2)
+	if !m3.Equal(m1) {
+		t.Errorf("Matrices should be equal.")
+	}
+}
+
+func TestMatrixMulTupleIdentity(t *testing.T) {
+	t1 := tuple.CreateTuple(1, 2, 3, 4)
+	m1 := Matrix{4, 4,
+		[][]float64{
+			{1, 0, 0, 0},
+			{0, 1, 0, 0},
+			{0, 0, 1, 0},
+			{0, 0, 0, 1},
+		}}
+	t2 := m1.MulTuple(t1)
+	if !t1.Equal(t2) {
+		t.Errorf("Tuples should be equal.")
+	}
+}
