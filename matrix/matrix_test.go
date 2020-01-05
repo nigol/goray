@@ -1,6 +1,7 @@
 package matrix
 
 import (
+	"goray/tuple"
 	"testing"
 )
 
@@ -101,5 +102,21 @@ func TestMatrixMul(t *testing.T) {
 	m4 := m1.Mul(m2)
 	if !m3.Equal(m4) {
 		t.Errorf("Matrices should be equal.")
+	}
+}
+
+func TestMatrixMulTuple(t *testing.T) {
+	m1 := Matrix{4, 4,
+		[][]float64{
+			{1, 2, 3, 4},
+			{2, 4, 4, 2},
+			{8, 6, 4, 1},
+			{0, 0, 0, 1},
+		}}
+	t1 := tuple.CreateTuple(1, 2, 3, 1)
+	t2 := tuple.CreateTuple(18, 24, 33, 1)
+	t3 := m1.MulTuple(t1)
+	if !t3.Equal(t2) {
+		t.Errorf("Tuples should be equal.")
 	}
 }

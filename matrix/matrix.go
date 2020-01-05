@@ -2,6 +2,7 @@ package matrix
 
 import (
 	"goray/common"
+	"goray/tuple"
 )
 
 type Matrix struct {
@@ -39,4 +40,16 @@ func (m Matrix) Mul(o Matrix) Matrix {
 		}
 	}
 	return mr
+}
+
+func (m Matrix) MulTuple(t tuple.Tuple) tuple.Tuple {
+	mt := Matrix{4, 1,
+		[][]float64{
+			{t.X},
+			{t.Y},
+			{t.Z},
+			{t.W},
+		}}
+	mr := m.Mul(mt)
+	return tuple.CreateTuple(mr.D[0][0], mr.D[1][0], mr.D[2][0], mr.D[3][0])
 }
