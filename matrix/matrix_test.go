@@ -45,3 +45,33 @@ func TestCreateMatrix3x3(t *testing.T) {
 		t.Errorf("Matrix definition is wrong.")
 	}
 }
+
+func TestMAtrixEqual(t *testing.T) {
+	m1 := Matrix{4, 4,
+		[][]float64{
+			{1, 2, 3, 4},
+            {5, 6, 7, 8},
+            {9, 8, 7, 6},
+            {5, 4, 3, 2},
+		}}
+	m2 := Matrix{4, 4,
+		[][]float64{
+			{1, 2, 3, 4},
+            {5, 6, 7, 8},
+            {9, 8, 7, 6},
+            {5, 4, 3, 2},
+		}}
+	m3 := Matrix{4, 4,
+		[][]float64{
+			{2, 3, 4, 5},
+            {6, 7, 8, 9},
+            {8, 7, 6, 5},
+            {4, 3, 2, 1},
+		}}
+	if !m1.Equal(m2) {
+		t.Errorf("Matrices should be equal.")
+	}
+	if m1.Equal(m3) {
+		t.Errorf("Matrices should not be equal.")
+	}
+}
