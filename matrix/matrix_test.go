@@ -46,32 +46,60 @@ func TestCreateMatrix3x3(t *testing.T) {
 	}
 }
 
-func TestMAtrixEqual(t *testing.T) {
+func TestMatrixEqual(t *testing.T) {
 	m1 := Matrix{4, 4,
 		[][]float64{
 			{1, 2, 3, 4},
-            {5, 6, 7, 8},
-            {9, 8, 7, 6},
-            {5, 4, 3, 2},
+			{5, 6, 7, 8},
+			{9, 8, 7, 6},
+			{5, 4, 3, 2},
 		}}
 	m2 := Matrix{4, 4,
 		[][]float64{
 			{1, 2, 3, 4},
-            {5, 6, 7, 8},
-            {9, 8, 7, 6},
-            {5, 4, 3, 2},
+			{5, 6, 7, 8},
+			{9, 8, 7, 6},
+			{5, 4, 3, 2},
 		}}
 	m3 := Matrix{4, 4,
 		[][]float64{
 			{2, 3, 4, 5},
-            {6, 7, 8, 9},
-            {8, 7, 6, 5},
-            {4, 3, 2, 1},
+			{6, 7, 8, 9},
+			{8, 7, 6, 5},
+			{4, 3, 2, 1},
 		}}
 	if !m1.Equal(m2) {
 		t.Errorf("Matrices should be equal.")
 	}
 	if m1.Equal(m3) {
 		t.Errorf("Matrices should not be equal.")
+	}
+}
+
+func TestMatrixMul(t *testing.T) {
+	m1 := Matrix{4, 4,
+		[][]float64{
+			{1, 2, 3, 4},
+			{5, 6, 7, 8},
+			{9, 8, 7, 6},
+			{5, 4, 3, 2},
+		}}
+	m2 := Matrix{4, 4,
+		[][]float64{
+			{-2, 1, 2, 3},
+			{3, 2, 1, -1},
+			{4, 3, 6, 5},
+			{1, 2, 7, 8},
+		}}
+	m3 := Matrix{4, 4,
+		[][]float64{
+			{20, 22, 50, 48},
+			{44, 54, 114, 108},
+			{40, 58, 110, 102},
+			{16, 26, 46, 42},
+		}}
+	m4 := m1.Mul(m2)
+	if !m3.Equal(m4) {
+		t.Errorf("Matrices should be equal.")
 	}
 }
