@@ -191,3 +191,14 @@ func TestMatrixTransposeIdentity(t *testing.T) {
 		t.Errorf("Matrices should be equal.")
 	}
 }
+
+func TestMatrixDeterminant2x2(t *testing.T) {
+	m1 := Matrix{2, 2,
+		[][]float64{
+			{1, 5},
+			{-3, 2},
+		}}
+	if m1.Determinant2x2() != 17 {
+		t.Errorf("2x2 determinant should be 17.")
+	}
+}
