@@ -53,3 +53,19 @@ func (m Matrix) MulTuple(t tuple.Tuple) tuple.Tuple {
 	mr := m.Mul(mt)
 	return tuple.CreateTuple(mr.D[0][0], mr.D[1][0], mr.D[2][0], mr.D[3][0])
 }
+
+func (m Matrix) Transpose() Matrix {
+	mr := Matrix{m.Rows, m.Cols,
+		[][]float64{
+			{0, 0, 0, 0},
+			{0, 0, 0, 0},
+			{0, 0, 0, 0},
+			{0, 0, 0, 0},
+		}}
+	for i := 0; i < m.Rows; i++ {
+		for j := 0; j < m.Cols; j++ {
+			mr.D[j][i] = m.D[i][j]
+		}
+	}
+	return mr
+}

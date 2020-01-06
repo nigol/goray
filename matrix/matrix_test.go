@@ -156,3 +156,38 @@ func TestMatrixMulTupleIdentity(t *testing.T) {
 		t.Errorf("Tuples should be equal.")
 	}
 }
+
+func TestMatrixTranspose(t *testing.T) {
+	m1 := Matrix{4, 4,
+		[][]float64{
+			{0, 9, 3, 0},
+			{9, 8, 0, 8},
+			{1, 8, 5, 3},
+			{0, 0, 5, 8},
+		}}
+	m2 := Matrix{4, 4,
+		[][]float64{
+			{0, 9, 1, 0},
+			{9, 8, 8, 0},
+			{3, 0, 5, 5},
+			{0, 8, 3, 8},
+		}}
+	m3 := m1.Transpose()
+	if !m3.Equal(m2) {
+		t.Errorf("Matrices should be equal.")
+	}
+}
+
+func TestMatrixTransposeIdentity(t *testing.T) {
+	m1 := Matrix{4, 4,
+		[][]float64{
+			{1, 0, 0, 0},
+			{0, 1, 0, 0},
+			{0, 0, 1, 0},
+			{0, 0, 0, 1},
+		}}
+	m3 := m1.Transpose()
+	if !m3.Equal(m1) {
+		t.Errorf("Matrices should be equal.")
+	}
+}
