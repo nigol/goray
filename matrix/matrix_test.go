@@ -215,7 +215,7 @@ func TestMatrixSubmatrix3x3(t *testing.T) {
 			{-3, 2},
 			{0, 6},
 		}}
-    mt := m1.Submatrix(0, 2)
+	mt := m1.Submatrix(0, 2)
 	if !mt.Equal(m2) {
 		t.Errorf("Submatrix 3x3 is incorrect. %f %f %f %f", mt.D[0][0], mt.D[0][1], mt.D[1][0], mt.D[1][1])
 	}
@@ -235,8 +235,39 @@ func TestMatrixSubmatrix4x4(t *testing.T) {
 			{-8, 8, 6},
 			{-7, -1, 1},
 		}}
-    mt := m1.Submatrix(2, 1)
+	mt := m1.Submatrix(2, 1)
 	if !mt.Equal(m2) {
 		t.Errorf("Submatrix 4x4 is incorrect. \n %f %f %f\n %f %f %f\n %f %f %f\n", mt.D[0][0], mt.D[0][1], mt.D[0][2], mt.D[1][0], mt.D[1][1], mt.D[1][2], mt.D[2][0], mt.D[2][1], mt.D[2][2])
+	}
+}
+
+func TestMatrixMinor3x3(t *testing.T) {
+	m1 := Matrix{3, 3,
+		[][]float64{
+			{3, 5, 0},
+			{2, -1, -7},
+			{6, -1, 5},
+		}}
+	mt := m1.Submatrix(1, 0)
+	det := mt.Determinant2x2()
+	if det != 25 || m1.Minor3x3(1, 0) != 25 {
+		t.Errorf("Minor of 3x3 is incorrect. %f", m1.Minor3x3(1, 0))
+	}
+}
+
+func TestMatrixCofactor3x3(t *testing.T) {
+	m1 := Matrix{3, 3,
+		[][]float64{
+			{3, 5, 0},
+			{2, -1, -7},
+			{6, -1, 5},
+		}}
+	min1 := m1.Minor3x3(0, 0)
+	if min1 != -12 || m1.Cofactor3x3(0, 0) != -12 {
+		t.Errorf("Cofactor of 3x3 is incorrect. %f", m1.Cofactor3x3(0, 0))
+	}
+	min2 := m1.Minor3x3(1, 0)
+	if min2 != 25 || m1.Cofactor3x3(1, 0) != -25 {
+		t.Errorf("Cofactor of 3x3 is incorrect. %f", m1.Cofactor3x3(1, 0))
 	}
 }

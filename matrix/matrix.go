@@ -82,24 +82,36 @@ func (m Matrix) Submatrix(r int, c int) Matrix {
 			{0, 0, 0, 0},
 			{0, 0, 0, 0},
 		}}
-        for i := 0; i < m.Rows; i++ {
-            if i == r {
-                continue
-            }
-            for j := 0; j < m.Cols; j++ {
-                if j == c {
-                    continue
-                }
-                fr := i
-                if i > r {
-                    fr = fr - 1
-                }
-                fc := j
-                if j > c {
-                    fc = fc - 1
-                }
-                mr.D[fr][fc] = m.D[i][j]
-            }
-        }
-        return mr
-    }
+	for i := 0; i < m.Rows; i++ {
+		if i == r {
+			continue
+		}
+		for j := 0; j < m.Cols; j++ {
+			if j == c {
+				continue
+			}
+			fr := i
+			if i > r {
+				fr = fr - 1
+			}
+			fc := j
+			if j > c {
+				fc = fc - 1
+			}
+			mr.D[fr][fc] = m.D[i][j]
+		}
+	}
+	return mr
+}
+
+func (m Matrix) Minor3x3(r int, c int) float64 {
+	return m.Submatrix(r, c).Determinant2x2()
+}
+
+func (m Matrix) Cofactor3x3(r int, c int) float64 {
+	result := m.Minor3x3(r, c)
+	if (r+c)%2 == 1 {
+		result = result * -1
+	}
+	return result
+}
