@@ -202,3 +202,41 @@ func TestMatrixDeterminant2x2(t *testing.T) {
 		t.Errorf("2x2 determinant should be 17.")
 	}
 }
+
+func TestMatrixSubmatrix3x3(t *testing.T) {
+	m1 := Matrix{3, 3,
+		[][]float64{
+			{1, 5, 0},
+			{-3, 2, 7},
+			{0, 6, -3},
+		}}
+	m2 := Matrix{2, 2,
+		[][]float64{
+			{-3, 2},
+			{0, 6},
+		}}
+    mt := m1.Submatrix(0, 2)
+	if !mt.Equal(m2) {
+		t.Errorf("Submatrix 3x3 is incorrect. %f %f %f %f", mt.D[0][0], mt.D[0][1], mt.D[1][0], mt.D[1][1])
+	}
+}
+
+func TestMatrixSubmatrix4x4(t *testing.T) {
+	m1 := Matrix{4, 4,
+		[][]float64{
+			{-6, 1, 1, 6},
+			{-8, 5, 8, 6},
+			{-1, 0, 8, 2},
+			{-7, 1, -1, 1},
+		}}
+	m2 := Matrix{3, 3,
+		[][]float64{
+			{-6, 1, 6},
+			{-8, 8, 6},
+			{-7, -1, 1},
+		}}
+    mt := m1.Submatrix(2, 1)
+	if !mt.Equal(m2) {
+		t.Errorf("Submatrix 4x4 is incorrect. \n %f %f %f\n %f %f %f\n %f %f %f\n", mt.D[0][0], mt.D[0][1], mt.D[0][2], mt.D[1][0], mt.D[1][1], mt.D[1][2], mt.D[2][0], mt.D[2][1], mt.D[2][2])
+	}
+}

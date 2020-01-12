@@ -69,6 +69,37 @@ func (m Matrix) Transpose() Matrix {
 	}
 	return mr
 }
+
 func (m Matrix) Determinant2x2() float64 {
 	return m.D[0][0]*m.D[1][1] - m.D[0][1]*m.D[1][0]
 }
+
+func (m Matrix) Submatrix(r int, c int) Matrix {
+	mr := Matrix{m.Rows - 1, m.Cols - 1,
+		[][]float64{
+			{0, 0, 0, 0},
+			{0, 0, 0, 0},
+			{0, 0, 0, 0},
+			{0, 0, 0, 0},
+		}}
+        for i := 0; i < m.Rows; i++ {
+            if i == r {
+                continue
+            }
+            for j := 0; j < m.Cols; j++ {
+                if j == c {
+                    continue
+                }
+                fr := i
+                if i > r {
+                    fr = fr - 1
+                }
+                fc := j
+                if j > c {
+                    fc = fc - 1
+                }
+                mr.D[fr][fc] = m.D[i][j]
+            }
+        }
+        return mr
+    }
