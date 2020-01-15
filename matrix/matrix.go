@@ -123,3 +123,23 @@ func (m Matrix) Determinant3x3() float64 {
 	}
 	return result
 }
+
+func (m Matrix) Minor4x4(r int, c int) float64 {
+	return m.Submatrix(r, c).Determinant3x3()
+}
+
+func (m Matrix) Cofactor4x4(r int, c int) float64 {
+	result := m.Minor4x4(r, c)
+	if (r+c)%2 == 1 {
+		result = result * -1
+	}
+	return result
+}
+
+func (m Matrix) Determinant4x4() float64 {
+	result := 0.0
+	for i := 0; i < 4; i++ {
+		result = result + m.D[0][i]*m.Cofactor4x4(0, i)
+	}
+	return result
+}

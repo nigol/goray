@@ -296,3 +296,21 @@ func TestMatrixDeterminant3x3(t *testing.T) {
 		t.Errorf("Determinant of 3x3 is incorrect. %f", m1.Determinant3x3())
 	}
 }
+
+func TestMatrixDeterminant4x4(t *testing.T) {
+	m1 := Matrix{4, 4,
+		[][]float64{
+			{-2, -8, 3, 5},
+			{-3, 1, 7, 3},
+			{1, 2, -9, 6},
+			{-6, 7, 7, -9},
+		}}
+	co1 := m1.Cofactor4x4(0, 0)
+	if co1 != 690 {
+		t.Errorf("Cofactor of 4x4 is incorrect. %f", m1.Cofactor4x4(0, 0))
+	}
+	d := m1.Determinant4x4()
+	if d != -4071 {
+		t.Errorf("Determinant of 4x4 is incorrect. %f", m1.Determinant4x4())
+	}
+}
