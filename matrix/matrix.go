@@ -115,3 +115,11 @@ func (m Matrix) Cofactor3x3(r int, c int) float64 {
 	}
 	return result
 }
+
+func (m Matrix) Determinant3x3() float64 {
+	result := 0.0
+	for i := 0; i < 3; i++ {
+		result = result + m.D[0][i]*m.Cofactor3x3(0, i)
+	}
+	return result
+}

@@ -271,3 +271,28 @@ func TestMatrixCofactor3x3(t *testing.T) {
 		t.Errorf("Cofactor of 3x3 is incorrect. %f", m1.Cofactor3x3(1, 0))
 	}
 }
+
+func TestMatrixDeterminant3x3(t *testing.T) {
+	m1 := Matrix{3, 3,
+		[][]float64{
+			{1, 2, 6},
+			{-5, 8, -4},
+			{2, 6, 4},
+		}}
+	co1 := m1.Cofactor3x3(0, 0)
+	if co1 != 56 {
+		t.Errorf("Cofactor of 3x3 is incorrect. %f", m1.Cofactor3x3(0, 0))
+	}
+	co2 := m1.Cofactor3x3(0, 1)
+	if co2 != 12 {
+		t.Errorf("Cofactor of 3x3 is incorrect. %f", m1.Cofactor3x3(0, 1))
+	}
+	co3 := m1.Cofactor3x3(0, 2)
+	if co3 != -46 {
+		t.Errorf("Cofactor of 3x3 is incorrect. %f", m1.Cofactor3x3(0, 2))
+	}
+	d := m1.Determinant3x3()
+	if d != -196 {
+		t.Errorf("Determinant of 3x3 is incorrect. %f", m1.Determinant3x3())
+	}
+}
