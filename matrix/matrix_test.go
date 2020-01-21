@@ -361,7 +361,7 @@ func TestMatrixInverse4x4_1(t *testing.T) {
 			{-0.07895, -0.22368, -0.05263, 0.19737},
 			{-0.52256, -0.81391, -0.30075, 0.30639},
 		}}
-    m3 := m1.Inverse4x4()
+	m3 := m1.Inverse4x4()
 	d := m1.Determinant4x4()
 	if d != 532 {
 		t.Errorf("Determinant of 4x4 is incorrect. %f", m1.Determinant4x4())
@@ -398,7 +398,7 @@ func TestMatrixInverse4x4_2(t *testing.T) {
 			{7, 0, 5, 4},
 			{6, -2, 0, 5},
 		}}
-    c := a.Mul(b)
+	c := a.Mul(b)
 	if !a.Equal(c.Mul(b.Inverse4x4())) {
 		t.Errorf("Should be %s.\n%s", a.String(), c.Mul(b.Inverse4x4()).String())
 	}

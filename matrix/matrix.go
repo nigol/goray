@@ -160,7 +160,7 @@ func (m Matrix) Inverse4x4() Matrix {
 		}}
 	for i := 0; i < m.Rows; i++ {
 		for j := 0; j < m.Cols; j++ {
-            c := m.Cofactor4x4(i, j)
+			c := m.Cofactor4x4(i, j)
 			mr.D[j][i] = c / d
 		}
 	}
