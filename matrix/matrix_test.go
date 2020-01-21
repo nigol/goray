@@ -345,3 +345,61 @@ func TestMatrixInvertible4x4(t *testing.T) {
 		t.Errorf("Matrix should be invertible.")
 	}
 }
+
+func TestMatrixInverse4x4_1(t *testing.T) {
+	m1 := Matrix{4, 4,
+		[][]float64{
+			{-5, 2, 6, -8},
+			{1, -5, 1, 8},
+			{7, 7, -6, -7},
+			{1, -3, 7, 4},
+		}}
+	m2 := Matrix{4, 4,
+		[][]float64{
+			{0.21805, 0.45113, 0.24060, -0.04511},
+			{-0.80827, -1.45677, -0.44361, 0.52068},
+			{-0.07895, -0.22368, -0.05263, 0.19737},
+			{-0.52256, -0.81391, -0.30075, 0.30639},
+		}}
+    m3 := m1.Inverse4x4()
+	d := m1.Determinant4x4()
+	if d != 532 {
+		t.Errorf("Determinant of 4x4 is incorrect. %f", m1.Determinant4x4())
+	}
+	if m1.Cofactor4x4(2, 3) != -160 {
+		t.Errorf("Cofactor of 4x4 is incorrect. %f", m1.Cofactor4x4(2, 3))
+	}
+	if m3.D[3][2] != -160.0/532.0 {
+		t.Errorf("Should be %f.\n%s", -160.0/532.0, m3.String())
+	}
+	if m1.Cofactor4x4(3, 2) != 105 {
+		t.Errorf("Cofactor of 4x4 is incorrect. %f", m1.Cofactor4x4(3, 2))
+	}
+	if m3.D[2][3] != 105.0/532 {
+		t.Errorf("Should be %f.\n%s", 105.0/532.0, m3.String())
+	}
+	if !m2.Equal(m3) {
+		t.Errorf("Should be %s.\n%s", m2.String(), m3.String())
+	}
+}
+
+func TestMatrixInverse4x4_2(t *testing.T) {
+	a := Matrix{4, 4,
+		[][]float64{
+			{3, -9, 7, 3},
+			{3, -8, 2, -9},
+			{-4, 4, 4, 1},
+			{-6, 5, -1, 1},
+		}}
+	b := Matrix{4, 4,
+		[][]float64{
+			{8, 2, 2, 2},
+			{3, -1, 7, 0},
+			{7, 0, 5, 4},
+			{6, -2, 0, 5},
+		}}
+    c := a.Mul(b)
+	if !a.Equal(c.Mul(b.Inverse4x4())) {
+		t.Errorf("Should be %s.\n%s", a.String(), c.Mul(b.Inverse4x4()).String())
+	}
+}

@@ -1,6 +1,7 @@
 package matrix
 
 import (
+	"fmt"
 	"goray/common"
 	"goray/tuple"
 )
@@ -146,4 +147,30 @@ func (m Matrix) Determinant4x4() float64 {
 
 func (m Matrix) Invertible4x4() bool {
 	return m.Determinant4x4() != 0
+}
+
+func (m Matrix) Inverse4x4() Matrix {
+	d := m.Determinant4x4()
+	mr := Matrix{m.Rows, m.Cols,
+		[][]float64{
+			{0, 0, 0, 0},
+			{0, 0, 0, 0},
+			{0, 0, 0, 0},
+			{0, 0, 0, 0},
+		}}
+	for i := 0; i < m.Rows; i++ {
+		for j := 0; j < m.Cols; j++ {
+            c := m.Cofactor4x4(i, j)
+			mr.D[j][i] = c / d
+		}
+	}
+	return mr
+}
+
+func (m Matrix) String() string {
+	return fmt.Sprintf("\n%f %f %f %f\n%f %f %f %f\n%f %f %f %f\n%f %f %f %f\n",
+		m.D[0][0], m.D[0][1], m.D[0][2], m.D[0][3],
+		m.D[1][0], m.D[1][1], m.D[1][2], m.D[1][3],
+		m.D[2][0], m.D[2][1], m.D[2][2], m.D[2][3],
+		m.D[3][0], m.D[3][1], m.D[3][2], m.D[3][3])
 }
