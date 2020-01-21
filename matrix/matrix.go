@@ -143,3 +143,7 @@ func (m Matrix) Determinant4x4() float64 {
 	}
 	return result
 }
+
+func (m Matrix) Invertible4x4() bool {
+	return m.Determinant4x4() != 0
+}

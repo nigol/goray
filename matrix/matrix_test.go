@@ -314,3 +314,34 @@ func TestMatrixDeterminant4x4(t *testing.T) {
 		t.Errorf("Determinant of 4x4 is incorrect. %f", m1.Determinant4x4())
 	}
 }
+
+func TestMatrixInvertible4x4(t *testing.T) {
+	m1 := Matrix{4, 4,
+		[][]float64{
+			{6, 4, 4, 4},
+			{5, 5, 7, 6},
+			{4, -9, 3, -7},
+			{9, 1, 7, -6},
+		}}
+	m2 := Matrix{4, 4,
+		[][]float64{
+			{-4, 2, -2, -3},
+			{9, 6, 2, 6},
+			{0, -5, 1, -5},
+			{0, 0, 0, 0},
+		}}
+	d1 := m1.Determinant4x4()
+	if d1 != -2120 {
+		t.Errorf("Determinant of 4x4 is incorrect. %f", m1.Determinant4x4())
+	}
+	if !m1.Invertible4x4() {
+		t.Errorf("Matrix should be invertible.")
+	}
+	d2 := m2.Determinant4x4()
+	if d2 != 0 {
+		t.Errorf("Determinant of 4x4 is incorrect. %f", m2.Determinant4x4())
+	}
+	if m2.Invertible4x4() {
+		t.Errorf("Matrix should be invertible.")
+	}
+}
