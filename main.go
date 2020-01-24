@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"goray/canvas"
+	"goray/matrix"
 	"goray/tuple"
 	"os"
 )
@@ -25,6 +26,29 @@ func tick(env Environment, proj Projectile) Projectile {
 		velocity,
 	}
 	return result
+}
+
+func matrixPlay() {
+	a := matrix.Matrix{4, 4,
+		[][]float64{
+			{1, 0, 0, 0},
+			{0, 1, 0, 0},
+			{0, 0, 1, 0},
+			{0, 0, 0, 1},
+		}}
+	fmt.Println(a.Inverse4x4().String())
+	b := matrix.Matrix{4, 4,
+		[][]float64{
+			{-2, -8, 3, 5},
+			{-3, 1, 7, 3},
+			{1, 2, -9, 6},
+			{-6, 7, 7, -9},
+		}}
+	fmt.Println(b.Mul(b.Inverse4x4()))
+	fmt.Println(b.Transpose().Inverse4x4())
+	fmt.Println(b.Inverse4x4().Transpose())
+	t := tuple.CreateTuple(1, 2, -9, 6)
+	fmt.Println(a.MulTuple(t))
 }
 
 func main() {
@@ -53,4 +77,5 @@ func main() {
 		panic("Can't write to file.")
 	}
 	fmt.Printf("%d bytes writen.\n", n)
+	matrixPlay()
 }
