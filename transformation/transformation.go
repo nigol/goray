@@ -34,3 +34,13 @@ func RotationX(r float64) matrix.Matrix {
 			{0, 0, 0, 1},
 		}}
 }
+
+func RotationY(r float64) matrix.Matrix {
+	return matrix.Matrix{4, 4,
+		[][]float64{
+			{math.Cos(r), 0, math.Sin(r), 0},
+			{0, 1, 0, 0},
+			{-1 * math.Sin(r), 0, math.Cos(r), 0},
+			{0, 0, 0, 1},
+		}}
+}

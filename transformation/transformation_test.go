@@ -69,10 +69,10 @@ func TestRotationX(t *testing.T) {
 	hq := RotationX(math.Pi / 4)
 	fq := RotationX(math.Pi / 2)
 	if !tuple.CreatePoint(0, math.Sqrt(2)/2, math.Sqrt(2)/2).Equal(hq.MulTuple(p)) {
-		t.Errorf("Rotation half quarter went wrong.")
+		t.Errorf("Rotation X half quarter went wrong.")
 	}
 	if !tuple.CreatePoint(0, 0, 1).Equal(fq.MulTuple(p)) {
-		t.Errorf("Rotation full quarter went wrong.")
+		t.Errorf("Rotation X full quarter went wrong.")
 	}
 }
 
@@ -81,6 +81,18 @@ func TestRotationXInverse(t *testing.T) {
 	hq := RotationX(math.Pi / 4)
 	inv := hq.Inverse4x4()
 	if !tuple.CreatePoint(0, math.Sqrt(2)/2, -1*math.Sqrt(2)/2).Equal(inv.MulTuple(p)) {
-		t.Errorf("Rotation inverse half quarter went wrong.")
+		t.Errorf("Rotation X inverse half quarter went wrong.")
+	}
+}
+
+func TestRotationY(t *testing.T) {
+	p := tuple.CreatePoint(0, 0, 1)
+	hq := RotationY(math.Pi / 4)
+	fq := RotationY(math.Pi / 2)
+	if !tuple.CreatePoint(math.Sqrt(2)/2, 0, math.Sqrt(2)/2).Equal(hq.MulTuple(p)) {
+		t.Errorf("Rotation Y half quarter went wrong.")
+	}
+	if !tuple.CreatePoint(1, 0, 0).Equal(fq.MulTuple(p)) {
+		t.Errorf("Rotation Y full quarter went wrong.")
 	}
 }
