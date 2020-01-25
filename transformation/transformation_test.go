@@ -108,3 +108,51 @@ func TestRotationZ(t *testing.T) {
 		t.Errorf("Rotation Z full quarter went wrong.")
 	}
 }
+
+func TestShearingXtoY(t *testing.T) {
+	p := tuple.CreatePoint(2, 3, 4)
+	tr := Shearing(1, 0, 0, 0, 0, 0)
+	if !tuple.CreatePoint(5, 3, 4).Equal(tr.MulTuple(p)) {
+		t.Errorf("Shearing X to Y went wrong.")
+	}
+}
+
+func TestShearingXtoZ(t *testing.T) {
+	p := tuple.CreatePoint(2, 3, 4)
+	tr := Shearing(0, 1, 0, 0, 0, 0)
+	if !tuple.CreatePoint(6, 3, 4).Equal(tr.MulTuple(p)) {
+		t.Errorf("Shearing X to Z went wrong.")
+	}
+}
+
+func TestShearingYtoX(t *testing.T) {
+	p := tuple.CreatePoint(2, 3, 4)
+	tr := Shearing(0, 0, 1, 0, 0, 0)
+	if !tuple.CreatePoint(2, 5, 4).Equal(tr.MulTuple(p)) {
+		t.Errorf("Shearing Y to X went wrong.")
+	}
+}
+
+func TestShearingYtoZ(t *testing.T) {
+	p := tuple.CreatePoint(2, 3, 4)
+	tr := Shearing(0, 0, 0, 1, 0, 0)
+	if !tuple.CreatePoint(2, 7, 4).Equal(tr.MulTuple(p)) {
+		t.Errorf("Shearing Y to Z went wrong.")
+	}
+}
+
+func TestShearingZtoX(t *testing.T) {
+	p := tuple.CreatePoint(2, 3, 4)
+	tr := Shearing(0, 0, 0, 0, 1, 0)
+	if !tuple.CreatePoint(2, 3, 6).Equal(tr.MulTuple(p)) {
+		t.Errorf("Shearing Z to X went wrong.")
+	}
+}
+
+func TestShearingZtoY(t *testing.T) {
+	p := tuple.CreatePoint(2, 3, 4)
+	tr := Shearing(0, 0, 0, 0, 0, 1)
+	if !tuple.CreatePoint(2, 3, 7).Equal(tr.MulTuple(p)) {
+		t.Errorf("Shearing Z to Y went wrong.")
+	}
+}

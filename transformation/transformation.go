@@ -54,3 +54,13 @@ func RotationZ(r float64) matrix.Matrix {
 			{0, 0, 0, 1},
 		}}
 }
+
+func Shearing(xy float64, xz float64, yx float64, yz float64, zx float64, zy float64) matrix.Matrix {
+	return matrix.Matrix{4, 4,
+		[][]float64{
+			{1, xy, xz, 0},
+			{yx, 1, yz, 0},
+			{zx, zy, 1, 0},
+			{0, 0, 0, 1},
+		}}
+}
