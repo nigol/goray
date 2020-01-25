@@ -96,3 +96,15 @@ func TestRotationY(t *testing.T) {
 		t.Errorf("Rotation Y full quarter went wrong.")
 	}
 }
+
+func TestRotationZ(t *testing.T) {
+	p := tuple.CreatePoint(0, 1, 0)
+	hq := RotationZ(math.Pi / 4)
+	fq := RotationZ(math.Pi / 2)
+	if !tuple.CreatePoint(-1*math.Sqrt(2)/2, math.Sqrt(2)/2, 0).Equal(hq.MulTuple(p)) {
+		t.Errorf("Rotation Z half quarter went wrong.")
+	}
+	if !tuple.CreatePoint(-1, 0, 0).Equal(fq.MulTuple(p)) {
+		t.Errorf("Rotation Z full quarter went wrong.")
+	}
+}
