@@ -3,79 +3,37 @@ package main
 import (
 	"fmt"
 	"goray/canvas"
-	"goray/matrix"
+	"goray/transformation"
 	"goray/tuple"
+	"math"
 	"os"
 )
 
-type Projectile struct {
-	position tuple.Tuple
-	velocity tuple.Tuple
-}
-
-type Environment struct {
-	gravity tuple.Tuple
-	wind    tuple.Tuple
-}
-
-func tick(env Environment, proj Projectile) Projectile {
-	position := proj.position.Add(proj.velocity)
-	velocity := proj.velocity.Add(env.gravity).Add(env.wind)
-	result := Projectile{
-		position,
-		velocity,
+func canvasToFile(can canvas.Canvas) (n int, err error) {
+	f, e1 := os.Create("out.ppm")
+	if e1 != nil {
+		return 0, e1
 	}
-	return result
-}
-
-func matrixPlay() {
-	a := matrix.Matrix{4, 4,
-		[][]float64{
-			{1, 0, 0, 0},
-			{0, 1, 0, 0},
-			{0, 0, 1, 0},
-			{0, 0, 0, 1},
-		}}
-	fmt.Println(a.Inverse4x4().String())
-	b := matrix.Matrix{4, 4,
-		[][]float64{
-			{-2, -8, 3, 5},
-			{-3, 1, 7, 3},
-			{1, 2, -9, 6},
-			{-6, 7, 7, -9},
-		}}
-	fmt.Println(b.Mul(b.Inverse4x4()))
-	fmt.Println(b.Transpose().Inverse4x4())
-	fmt.Println(b.Inverse4x4().Transpose())
-	t := tuple.CreateTuple(1, 2, -9, 6)
-	fmt.Println(a.MulTuple(t))
+	defer f.Close()
+	n, e2 := f.WriteString(can.Ppm())
+	return n, e2
 }
 
 func main() {
-	p := Projectile{
-		position: tuple.CreatePoint(0, 1, 0),
-		velocity: tuple.CreateVector(1, 1.8, 0).Normalize().ScalarMul(9.25),
-	}
-	e := Environment{
-		gravity: tuple.CreateVector(0, -0.1, 0),
-		wind:    tuple.CreateVector(-0.01, 0, 0),
-	}
 	col := canvas.Color{0.0, 1.0, 0.0}
-	can := canvas.CreateCanvas(900, 550)
-	for p.position.Y >= 0 {
-		p = tick(e, p)
-		fmt.Printf("x: %f, y: %f\n", p.position.X, p.position.Y)
-		can.WritePixel(int(p.position.X), can.Height-int(p.position.Y), col)
+	can := canvas.CreateCanvas(200, 200)
+	step := 2.0 * math.Pi / 12
+	fmt.Printf("step: %f\n", step)
+	for i := 0; i < 12; i++ {
+		p := tuple.CreatePoint(0, 1, 0)
+		t := transformation.Translation(80, 80, 0).Mul(transformation.Scaling(80, 80, 0).Mul(transformation.RotationZ(step * float64(i))))
+		pt := t.MulTuple(p)
+		fmt.Printf("x: %f, y: %f\n", pt.X, pt.Y)
+		can.WritePixel(int(pt.X), int(pt.Y), col)
 	}
-	f, err := os.Create("out.ppm")
+	n, err := canvasToFile(can)
 	if err != nil {
-		panic("Can't create image file.")
-	}
-	defer f.Close()
-	n, err := f.WriteString(can.Ppm())
-	if err != nil {
-		panic("Can't write to file.")
+		panic("Error writing to file.")
 	}
 	fmt.Printf("%d bytes writen.\n", n)
-	matrixPlay()
 }
