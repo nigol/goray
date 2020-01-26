@@ -156,3 +156,27 @@ func TestShearingZtoY(t *testing.T) {
 		t.Errorf("Shearing Z to Y went wrong.")
 	}
 }
+
+func TestTransforationFolding(t *testing.T) {
+	p := tuple.CreatePoint(1, 0, 1)
+	a := RotationX(math.Pi / 2)
+	b := Scaling(5, 5, 5)
+	c := Translation(10, 5, 7)
+	p2 := a.MulTuple(p)
+	if !tuple.CreatePoint(1, -1, 0).Equal(p2) {
+		t.Errorf("A rotation wrong.")
+	}
+	p3 := b.MulTuple(p2)
+	if !tuple.CreatePoint(5, -5, 0).Equal(p3) {
+		t.Errorf("B scaling wrong.")
+	}
+	p4 := c.MulTuple(p3)
+	if !tuple.CreatePoint(15, 0, 7).Equal(p4) {
+		t.Errorf("C translation wrong.")
+	}
+	tr := c.Mul(b.Mul(a))
+	p5 := tr.MulTuple(p)
+	if !tuple.CreatePoint(15, 0, 7).Equal(p5) {
+		t.Errorf("T transformation wrong.")
+	}
+}
