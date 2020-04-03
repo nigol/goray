@@ -1,4 +1,4 @@
-package sphere
+package object
 
 import (
 	"goray/ray"
@@ -13,7 +13,7 @@ func TestIntersect2Points(t *testing.T) {
 	}
 	s := Sphere{}
 	xs := s.Intersect(r)
-	if xs[0] != 4.0 && xs[1] != 6.0 {
+	if xs.Xs[0].Object != s && xs.Xs[1].Object != s && xs.Xs[0].T != 4.0 && xs.Xs[1].T != 6.0 {
 		t.Errorf("Intersection of 2 points is wrong.")
 	}
 }
@@ -25,7 +25,7 @@ func TestIntersectTangent(t *testing.T) {
 	}
 	s := Sphere{}
 	xs := s.Intersect(r)
-	if xs[0] != 5.0 && xs[1] != 5.0 {
+	if xs.Xs[0].Object != s && xs.Xs[1].Object != s && xs.Xs[0].T != 5.0 && xs.Xs[1].T != 5.0 {
 		t.Errorf("Intersection at tangent is wrong.")
 	}
 }
@@ -37,7 +37,7 @@ func TestIntersectMiss(t *testing.T) {
 	}
 	s := Sphere{}
 	xs := s.Intersect(r)
-	if len(xs) != 0 {
+	if len(xs.Xs) != 0 {
 		t.Errorf("Intersection miss is wrong.")
 	}
 }
@@ -49,7 +49,7 @@ func TestIntersectInside(t *testing.T) {
 	}
 	s := Sphere{}
 	xs := s.Intersect(r)
-	if xs[0] != -1.0 && xs[1] != 1.0 {
+	if xs.Xs[0].Object != s && xs.Xs[1].Object != s && xs.Xs[0].T != -1.0 && xs.Xs[1].T != 1.0 {
 		t.Errorf("Intersection inside is wrong.")
 	}
 }
@@ -61,7 +61,7 @@ func TestIntersectBehind(t *testing.T) {
 	}
 	s := Sphere{}
 	xs := s.Intersect(r)
-	if xs[0] != -6.0 && xs[1] != -4.0 {
+	if xs.Xs[0].Object != s && xs.Xs[1].Object != s && xs.Xs[0].T != -6.0 && xs.Xs[1].T != -4.0 {
 		t.Errorf("Intersection behind is wrong.")
 	}
 }
