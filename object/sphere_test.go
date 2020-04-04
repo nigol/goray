@@ -87,3 +87,29 @@ func TestChangeTransformation(t *testing.T) {
 		t.Errorf("Sphere set transformation doesn't work.")
 	}
 }
+
+func TestIntersectScaledSphereRay(t *testing.T) {
+	s := CreateSphere()
+	r := ray.Ray{
+		tuple.CreatePoint(0, 0, -5),
+		tuple.CreateVector(0, 0, 1),
+	}
+	s.Transform = transformation.Scaling(2, 2, 2)
+	xs := s.Intersect(r)
+	if len(xs.Xs) != 2 || xs.Xs[0].T != 3 || xs.Xs[1].T != 7 {
+		t.Errorf("Scaled intersection is wrong.")
+	}
+}
+
+func TestIntersectTranslatedRay(t *testing.T) {
+	s := CreateSphere()
+	r := ray.Ray{
+		tuple.CreatePoint(0, 0, -5),
+		tuple.CreateVector(0, 0, 1),
+	}
+	s.Transform = transformation.Translation(5, 0, 0)
+	xs := s.Intersect(r)
+	if len(xs.Xs) != 0 {
+		t.Errorf("Translated intersection is wrong.")
+	}
+}
