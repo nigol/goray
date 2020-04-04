@@ -64,3 +64,13 @@ func Shearing(xy float64, xz float64, yx float64, yz float64, zx float64, zy flo
 			{0, 0, 0, 1},
 		}}
 }
+
+func Identity() matrix.Matrix {
+	return matrix.Matrix{4, 4,
+		[][]float64{
+			{1, 0, 0, 0},
+			{0, 1, 0, 0},
+			{0, 0, 1, 0},
+			{0, 0, 0, 1},
+		}}
+}

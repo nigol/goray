@@ -2,6 +2,7 @@ package object
 
 import (
 	"goray/ray"
+	"goray/transformation"
 	"goray/tuple"
 	"testing"
 )
@@ -11,9 +12,11 @@ func TestIntersect2Points(t *testing.T) {
 		tuple.CreatePoint(0, 0, -5),
 		tuple.CreateVector(0, 0, 1),
 	}
-	s := Sphere{}
+	s := CreateSphere()
 	xs := s.Intersect(r)
-	if xs.Xs[0].Object != s && xs.Xs[1].Object != s && xs.Xs[0].T != 4.0 && xs.Xs[1].T != 6.0 {
+	if xs.Xs[0].Object.Kind() != s.Kind() &&
+		xs.Xs[1].Object.Kind() != s.Kind() &&
+		xs.Xs[0].T != 4.0 && xs.Xs[1].T != 6.0 {
 		t.Errorf("Intersection of 2 points is wrong.")
 	}
 }
@@ -23,9 +26,11 @@ func TestIntersectTangent(t *testing.T) {
 		tuple.CreatePoint(0, 1, -5),
 		tuple.CreateVector(0, 0, 1),
 	}
-	s := Sphere{}
+	s := CreateSphere()
 	xs := s.Intersect(r)
-	if xs.Xs[0].Object != s && xs.Xs[1].Object != s && xs.Xs[0].T != 5.0 && xs.Xs[1].T != 5.0 {
+	if xs.Xs[0].Object.Kind() != s.Kind() &&
+		xs.Xs[1].Object.Kind() != s.Kind() &&
+		xs.Xs[0].T != 5.0 && xs.Xs[1].T != 5.0 {
 		t.Errorf("Intersection at tangent is wrong.")
 	}
 }
@@ -35,7 +40,7 @@ func TestIntersectMiss(t *testing.T) {
 		tuple.CreatePoint(0, 2, -5),
 		tuple.CreateVector(0, 0, 1),
 	}
-	s := Sphere{}
+	s := CreateSphere()
 	xs := s.Intersect(r)
 	if len(xs.Xs) != 0 {
 		t.Errorf("Intersection miss is wrong.")
@@ -47,9 +52,10 @@ func TestIntersectInside(t *testing.T) {
 		tuple.CreatePoint(0, 0, 0),
 		tuple.CreateVector(0, 0, 1),
 	}
-	s := Sphere{}
+	s := CreateSphere()
 	xs := s.Intersect(r)
-	if xs.Xs[0].Object != s && xs.Xs[1].Object != s && xs.Xs[0].T != -1.0 && xs.Xs[1].T != 1.0 {
+	if xs.Xs[0].Object.Kind() != s.Kind() &&
+		xs.Xs[1].Object.Kind() != s.Kind() && xs.Xs[0].T != -1.0 && xs.Xs[1].T != 1.0 {
 		t.Errorf("Intersection inside is wrong.")
 	}
 }
@@ -59,9 +65,25 @@ func TestIntersectBehind(t *testing.T) {
 		tuple.CreatePoint(0, 0, 5),
 		tuple.CreateVector(0, 0, 1),
 	}
-	s := Sphere{}
+	s := CreateSphere()
 	xs := s.Intersect(r)
-	if xs.Xs[0].Object != s && xs.Xs[1].Object != s && xs.Xs[0].T != -6.0 && xs.Xs[1].T != -4.0 {
+	if xs.Xs[0].Object.Kind() != s.Kind() &&
+		xs.Xs[1].Object.Kind() != s.Kind() && xs.Xs[0].T != -6.0 && xs.Xs[1].T != -4.0 {
 		t.Errorf("Intersection behind is wrong.")
+	}
+}
+
+func TestDefaultTransformation(t *testing.T) {
+	s := CreateSphere()
+	if !s.Transform.Equal(transformation.Identity()) {
+		t.Errorf("Sphere initial transformation is incorrect.")
+	}
+}
+
+func TestChangeTransformation(t *testing.T) {
+	s := CreateSphere()
+	s.Transform = transformation.Translation(2, 3, 4)
+	if !s.Transform.Equal(transformation.Translation(2, 3, 4)) {
+		t.Errorf("Sphere set transformation doesn't work.")
 	}
 }

@@ -1,12 +1,24 @@
 package object
 
 import (
+	"goray/matrix"
 	"goray/ray"
+	"goray/transformation"
 	"goray/tuple"
 	"math"
 )
 
 type Sphere struct {
+	kind      string
+	Transform matrix.Matrix
+}
+
+func CreateSphere() Sphere {
+	return Sphere{"sphere", transformation.Identity()}
+}
+
+func (s Sphere) Kind() string {
+	return s.kind
 }
 
 func (s Sphere) Intersect(r ray.Ray) Intersections {
