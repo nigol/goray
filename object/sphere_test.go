@@ -42,7 +42,7 @@ func TestIntersectMiss(t *testing.T) {
 	}
 	s := CreateSphere()
 	xs := s.Intersect(r)
-	if len(xs.Xs) != 0 {
+	if xs.Defined() {
 		t.Errorf("Intersection miss is wrong.")
 	}
 }

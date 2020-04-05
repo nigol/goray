@@ -9,6 +9,10 @@ type Intersections struct {
 	Xs []Intersection
 }
 
+func (i Intersections) Defined() bool {
+	return len(i.Xs) != 0
+}
+
 func (i Intersections) Hit() Intersection {
 	var result Intersection
 	for _, in := range i.Xs {

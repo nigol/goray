@@ -3,9 +3,9 @@ package main
 import (
 	"fmt"
 	"goray/canvas"
-	"goray/transformation"
+	"goray/object"
+	"goray/ray"
 	"goray/tuple"
-	"math"
 	"os"
 )
 
@@ -21,15 +21,28 @@ func canvasToFile(can canvas.Canvas) (n int, err error) {
 
 func main() {
 	col := canvas.Color{0.0, 1.0, 0.0}
-	can := canvas.CreateCanvas(200, 200)
-	step := 2.0 * math.Pi / 12
-	fmt.Printf("step: %f\n", step)
-	for i := 0; i < 12; i++ {
-		p := tuple.CreatePoint(0, 1, 0)
-		t := transformation.Translation(80, 80, 0).Mul(transformation.Scaling(80, 80, 0).Mul(transformation.RotationZ(step * float64(i))))
-		pt := t.MulTuple(p)
-		fmt.Printf("x: %f, y: %f\n", pt.X, pt.Y)
-		can.WritePixel(int(pt.X), int(pt.Y), col)
+	rayOrigin := tuple.CreatePoint(0, 0, -5)
+	const wallZ float64 = 10
+	const wallSize float64 = 7
+	canvasPixels := 100
+	pixelSize := wallSize / float64(canvasPixels)
+	half := wallSize / 2
+	can := canvas.CreateCanvas(canvasPixels, canvasPixels)
+	object := object.CreateSphere()
+	for y := 0; y < canvasPixels; y++ {
+		worldY := half - pixelSize*float64(y)
+		for x := 0; x < canvasPixels; x++ {
+			worldX := -half + pixelSize*float64(x)
+			position := tuple.CreatePoint(worldX, worldY, wallZ)
+			ray := ray.Ray{
+				rayOrigin,
+				position.Sub(rayOrigin).Normalize(),
+			}
+			xs := object.Intersect(ray)
+			if xs.Defined() {
+				can.WritePixel(x, y, col)
+			}
+		}
 	}
 	n, err := canvasToFile(can)
 	if err != nil {
