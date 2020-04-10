@@ -154,3 +154,22 @@ func TestNormalNormalized(t *testing.T) {
 		t.Errorf("Non axial normal is wrong.")
 	}
 }
+
+func TestNormalTranslated(t *testing.T) {
+	s := CreateSphere()
+	s.Transform = transformation.Translation(0, 1, 0)
+	n := s.NormalAt(tuple.CreatePoint(0, 1.70711, -0.70711))
+	if !tuple.CreateVector(0, 0.70711, -0.70711).Equal(n) {
+		t.Errorf("Translated normal is wrong.")
+	}
+}
+
+func TestNormalTransformed(t *testing.T) {
+	s := CreateSphere()
+	m := transformation.Scaling(1, 0.5, 1).Mul(transformation.RotationZ(math.Pi/5))
+	s.Transform = m
+	n := s.NormalAt(tuple.CreatePoint(0, math.Sqrt(2)/2, -1 * math.Sqrt(2)/2))
+	if !tuple.CreateVector(0, 0.97014, -0.24254).Equal(n) {
+		t.Errorf("Transformed normal is wrong.")
+	}
+}

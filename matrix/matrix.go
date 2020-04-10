@@ -167,6 +167,24 @@ func (m Matrix) Inverse4x4() Matrix {
 	return mr
 }
 
+func (m Matrix) Inverse3x3() Matrix {
+	d := m.Determinant3x3()
+	mr := Matrix{m.Rows, m.Cols,
+		[][]float64{
+			{0, 0, 0, 0},
+			{0, 0, 0, 0},
+			{0, 0, 0, 0},
+			{0, 0, 0, 0},
+		}}
+	for i := 0; i < m.Rows; i++ {
+		for j := 0; j < m.Cols; j++ {
+			c := m.Cofactor3x3(i, j)
+			mr.D[j][i] = c / d
+		}
+	}
+	return mr
+}
+
 func (m Matrix) String() string {
 	return fmt.Sprintf("\n%f %f %f %f\n%f %f %f %f\n%f %f %f %f\n%f %f %f %f\n",
 		m.D[0][0], m.D[0][1], m.D[0][2], m.D[0][3],

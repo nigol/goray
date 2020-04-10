@@ -49,5 +49,9 @@ func (s Sphere) Intersect(r ray.Ray) Intersections {
 }
 
 func (s Sphere) NormalAt(p tuple.Tuple) tuple.Tuple {
-	return p.Sub(tuple.CreatePoint(0, 0, 0))
+	objectPoint := s.Transform.Inverse4x4().MulTuple(p)
+	objectNormal := objectPoint.Sub(tuple.CreatePoint(0, 0, 0))
+	transform3x3 := s.Transform.Submatrix(3, 3)
+	worldNormal := transform3x3.Inverse3x3().Transpose().MulTuple(objectNormal)
+	return worldNormal.Normalize()
 }
