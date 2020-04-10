@@ -49,5 +49,5 @@ func (s Sphere) Intersect(r ray.Ray) Intersections {
 }
 
 func (s Sphere) NormalAt(p tuple.Tuple) tuple.Tuple {
-	return tuple.CreateVector(p.X, p.Y, p.Z)
+	return p.Sub(tuple.CreatePoint(0, 0, 0))
 }
