@@ -4,6 +4,7 @@ import (
 	"goray/ray"
 	"goray/transformation"
 	"goray/tuple"
+	"math"
 	"testing"
 )
 
@@ -111,5 +112,45 @@ func TestIntersectTranslatedRay(t *testing.T) {
 	xs := s.Intersect(r)
 	if len(xs.Xs) != 0 {
 		t.Errorf("Translated intersection is wrong.")
+	}
+}
+
+func TestNormalXAxis(t *testing.T) {
+	s := CreateSphere()
+	n := s.NormalAt(tuple.CreatePoint(1, 0, 0))
+	if !tuple.CreateVector(1, 0, 0).Equal(n) {
+		t.Errorf("Normal at X is wrong.")
+	}
+}
+
+func TestNormalYAxis(t *testing.T) {
+	s := CreateSphere()
+	n := s.NormalAt(tuple.CreatePoint(0, 1, 0))
+	if !tuple.CreateVector(0, 1, 0).Equal(n) {
+		t.Errorf("Normal at Y is wrong.")
+	}
+}
+
+func TestNormalZAxis(t *testing.T) {
+	s := CreateSphere()
+	n := s.NormalAt(tuple.CreatePoint(0, 0, 1))
+	if !tuple.CreateVector(0, 0, 1).Equal(n) {
+		t.Errorf("Normal at Z is wrong.")
+	}
+}
+
+func TestNormalNonAxial(t *testing.T) {
+	s := CreateSphere()
+	n := s.NormalAt(tuple.CreatePoint(math.Sqrt(3)/3, math.Sqrt(3)/3, math.Sqrt(3)/3))
+	if !tuple.CreateVector(math.Sqrt(3)/3, math.Sqrt(3)/3, math.Sqrt(3)/3).Equal(n) {
+		t.Errorf("Non axial normal is wrong.")
+	}
+}
+
+func TestNormalNormalized(t *testing.T) {
+	s := CreateSphere()
+	n := s.NormalAt(tuple.CreatePoint(math.Sqrt(3)/3, math.Sqrt(3)/3, math.Sqrt(3)/3))
+	if !tuple.CreateVector(math.Sqrt(3)/3, math.Sqrt(3)/3, math.Sqrt(3)/3).Normalize().Equal(n) {
+		t.Errorf("Non axial normal is wrong.")
 	}
 }
