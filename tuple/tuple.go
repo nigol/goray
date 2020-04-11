@@ -71,3 +71,15 @@ func (t Tuple) Dot(o Tuple) float64 {
 func (t Tuple) Cross(o Tuple) Tuple {
 	return CreateVector(t.Y*o.Z-t.Z*o.Y, t.Z*o.X-t.X*o.Z, t.X*o.Y-t.Y*o.X)
 }
+
+func (v Tuple) Reflect(n Tuple) Tuple {
+	// It is not calculating reflection around _n_ actually.
+	// It is calculating reflection around _n_ rotated by pi/4 clockwise.
+	// Compare v - 2(v . n)n VS. 2(v . n)n - v (correct)
+	s := 2 * v.Dot(n)
+	return v.Sub(n.ScalarMul(s))
+}
+
+func (t Tuple) Mul(o Tuple) Tuple {
+	return CreateTuple(t.X*o.X, t.Y*o.Y, t.Z*o.Z, t.W*o.W)
+}

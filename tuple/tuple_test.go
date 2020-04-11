@@ -190,3 +190,30 @@ func TestCross(t *testing.T) {
 		t.Errorf("Tuples should be equal: %f, %f, %f, %f", t4.X, t4.Y, t4.Z, t4.W)
 	}
 }
+
+func TestReflectVector45(t *testing.T) {
+	v := CreateVector(1, -1, 0)
+	n := CreateVector(0, 1, 0)
+	r := v.Reflect(n)
+	if !CreateVector(1, 1, 0).Equal(r) {
+		t.Errorf("Reflecting vector with 45 deg is wrong.")
+	}
+}
+
+func TestReflectVectorSlanted(t *testing.T) {
+	v := CreateVector(0, -1, 0)
+	n := CreateVector(math.Sqrt(2)/2, math.Sqrt(2)/2, 0)
+	r := v.Reflect(n)
+	if !CreateVector(1, 0, 0).Equal(r) {
+		t.Errorf("Reflecting vector off slanted surface is wrong.")
+	}
+}
+
+func TestMul(t *testing.T) {
+	t1 := CreateTuple(1, 2, 3, 1)
+	t2 := CreateTuple(1, 2, 3, 0)
+	t3 := t1.Mul(t2)
+	if !CreateTuple(1, 4, 9, 0).Equal(t3) {
+		t.Errorf("Tuples mul is wrong.")
+	}
+}
