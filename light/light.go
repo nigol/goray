@@ -6,6 +6,6 @@ import (
 )
 
 type PointLight struct {
-	Position tuple.Tuple
-	Intensity canvas.Color	
+	Position  tuple.Tuple
+	Intensity canvas.Color
 }
