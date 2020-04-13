@@ -1,6 +1,7 @@
 package object
 
 import (
+	"goray/material"
 	"goray/matrix"
 	"goray/ray"
 	"goray/transformation"
@@ -11,10 +12,15 @@ import (
 type Sphere struct {
 	kind      string
 	Transform matrix.Matrix
+	Material  material.Material
 }
 
 func CreateSphere() Sphere {
-	return Sphere{"sphere", transformation.Identity()}
+	return Sphere{
+		"sphere",
+		transformation.Identity(),
+		material.CreateMaterial(),
+	}
 }
 
 func (s Sphere) Kind() string {
