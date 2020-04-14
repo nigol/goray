@@ -39,16 +39,17 @@ func (m Material) Lighting(light light.PointLight, point, eyev, normalv tuple.Tu
 	specular := canvas.Color{0, 0, 0}
 	if lightDotNormal > 0 {
 		diffuse = effectiveColor.ScalarMul(m.Diffuse * lightDotNormal)
+
+		// reflectDotEye = cosine of the angle between reflection vector and eye vector.
+		// If negative, light reflects away.
+		reflectv := lightv.Reflect(normalv)
+		reflectDotEye := reflectv.Dot(eyev)
+		specular = canvas.Color{0, 0, 0}
+		if reflectDotEye > 0 {
+			factor := math.Pow(reflectDotEye, m.Shininess)
+			specular = light.Intensity.ScalarMul(m.Specular * factor)
+		}
 	}
 
-	// reflectDotEye = cosine of the angle between reflection vector and eye vector.
-	// If negative, light reflects away.
-	reflectv := lightv.Reflect(normalv)
-	reflectDotEye := reflectv.Dot(eyev)
-	specular = canvas.Color{0, 0, 0}
-	if reflectDotEye > 0 {
-		factor := math.Pow(reflectDotEye, m.Shininess)
-		specular = light.Intensity.ScalarMul(m.Specular * factor)
-	}
 	return ambient.Add(diffuse.Add(specular))
 }
