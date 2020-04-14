@@ -73,11 +73,8 @@ func (t Tuple) Cross(o Tuple) Tuple {
 }
 
 func (v Tuple) Reflect(n Tuple) Tuple {
-	// It is not calculating reflection around _n_ actually.
-	// It is calculating reflection around _n_ rotated by pi/4 clockwise.
-	// Compare v - 2(v . n)n VS. 2(v . n)n - v (correct)
 	s := 2 * v.Dot(n)
-	return v.Sub(n.ScalarMul(s))
+	return n.ScalarMul(s).Sub(v)
 }
 
 func (t Tuple) Mul(o Tuple) Tuple {

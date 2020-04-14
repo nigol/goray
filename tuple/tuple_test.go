@@ -193,7 +193,7 @@ func TestCross(t *testing.T) {
 
 func TestReflectVector45(t *testing.T) {
 	v := CreateVector(1, -1, 0)
-	n := CreateVector(0, 1, 0)
+	n := CreateVector(1, 0, 0)
 	r := v.Reflect(n)
 	if !CreateVector(1, 1, 0).Equal(r) {
 		t.Errorf("Reflecting vector with 45 deg is wrong.")
@@ -202,7 +202,7 @@ func TestReflectVector45(t *testing.T) {
 
 func TestReflectVectorSlanted(t *testing.T) {
 	v := CreateVector(0, -1, 0)
-	n := CreateVector(math.Sqrt(2)/2, math.Sqrt(2)/2, 0)
+	n := CreateVector(math.Sqrt(2)/2, -1*math.Sqrt(2)/2, 0)
 	r := v.Reflect(n)
 	if !CreateVector(1, 0, 0).Equal(r) {
 		t.Errorf("Reflecting vector off slanted surface is wrong.")
