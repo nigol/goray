@@ -29,3 +29,22 @@ func TestScale(t *testing.T) {
 		t.Errorf("Ray scaling is wrong.")
 	}
 }
+
+func TestPosition(t *testing.T) {
+	r := Ray{
+		tuple.CreatePoint(2, 3, 4),
+		tuple.CreateVector(1, 0, 0),
+	}
+	if !tuple.CreatePoint(2, 3, 4).Equal(r.Position(0)) {
+		t.Errorf("Ray position is wrong.")
+	}
+	if !tuple.CreatePoint(3, 3, 4).Equal(r.Position(1)) {
+		t.Errorf("Ray position is wrong.")
+	}
+	if !tuple.CreatePoint(1, 3, 4).Equal(r.Position(-1)) {
+		t.Errorf("Ray position is wrong.")
+	}
+	if !tuple.CreatePoint(4.5, 3, 4).Equal(r.Position(2.5)) {
+		t.Errorf("Ray position is wrong.")
+	}
+}

@@ -17,3 +17,7 @@ func (r Ray) Transform(m matrix.Matrix) Ray {
 	}
 	return ra
 }
+
+func (r Ray) Position(t float64) tuple.Tuple {
+	return r.Origin.Add(r.Direction.ScalarMul(t))
+}
