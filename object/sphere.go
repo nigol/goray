@@ -61,3 +61,7 @@ func (s Sphere) NormalAt(p tuple.Tuple) tuple.Tuple {
 	worldNormal := transform3x3.Inverse3x3().Transpose().MulTuple(objectNormal)
 	return worldNormal.Normalize()
 }
+
+func (s Sphere) GetMaterial() material.Material {
+	return s.Material
+}

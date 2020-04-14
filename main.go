@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"goray/canvas"
+	"goray/light"
 	"goray/object"
 	"goray/ray"
 	"goray/tuple"
@@ -29,6 +30,8 @@ func main() {
 	half := wallSize / 2
 	can := canvas.CreateCanvas(canvasPixels, canvasPixels)
 	object := object.CreateSphere()
+	object.Material.Color = canvas.Color{0.2, 1, 0.2}
+	light := light.PointLight{tuple.CreatePoint(-10, 10, -10), canvas.Color{1, 1, 1}}
 	for y := 0; y < canvasPixels; y++ {
 		worldY := half - pixelSize*float64(y)
 		for x := 0; x < canvasPixels; x++ {
@@ -40,6 +43,10 @@ func main() {
 			}
 			xs := object.Intersect(ray)
 			if xs.Defined() {
+				point := ray.Position(xs.Hit().T)
+				normal := xs.Hit().Object.NormalAt(point)
+				eye := ray.Direction.ScalarMul(-1)
+				col = xs.Hit().Object.GetMaterial().Lighting(light, point, eye, normal)
 				can.WritePixel(x, y, col)
 			}
 		}
